@@ -21,7 +21,7 @@ urlpatterns = (
     # 计数器接口
     url(r'^api/count(/)?$', views.counter),
 
+    url(r'^current/time(/)$', views.get_current_time),
     # 获取主页
     url(r'(/)?$', views.index),
-    url(r'^current/time(/)$', views.get_current_time)
 )
