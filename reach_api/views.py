@@ -9,11 +9,14 @@ from .models import Counters
 
 logger = logging.getLogger('log')
 
+
 def get_current_time():
     now = datetime.now()
 
     # 按照指定格式打印当前日期和时间
-    return now.strftime("%Y-%m-%d %H:%M:%S")
+    time = now.strftime("%Y-%m-%d %H:%M:%S")
+    return JsonResponse({'code': 0, 'data': time},
+                        json_dumps_params={'ensure_ascii': False})
 
 
 def index(request, _):
