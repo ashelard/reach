@@ -10,7 +10,7 @@ from .models import Counters
 logger = logging.getLogger('log')
 
 
-def get_current_time():
+def get_current_time(request):
     now = datetime.now()
 
     # 按照指定格式打印当前日期和时间
