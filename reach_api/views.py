@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import datetime
 
+import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Counters
@@ -10,10 +11,12 @@ logger = logging.getLogger('log')
 
 
 def get_current_time(request, _):
-    now = datetime.now()
-
-    # 按照指定格式打印当前日期和时间
+    utc_now = datetime.now(pytz.utc)
+    # 转换为东八区时间
+    czone = pytz.timezone('Asia/Shanghai')
+    now = utc_now.astimezone(czone)
     time = now.strftime("%Y-%m-%d %H:%M:%S")
+
     logger.info('get current time result: {}'.format(time))
     return JsonResponse({'code': 0, 'data': time},
                         json_dumps_params={'ensure_ascii': False})
