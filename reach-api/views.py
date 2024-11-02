@@ -3,7 +3,7 @@ import logging
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from wxcloudrun.models import Counters
+from .models import Counters
 
 
 logger = logging.getLogger('log')

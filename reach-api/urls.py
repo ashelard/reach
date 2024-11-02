@@ -1,4 +1,4 @@
-"""wxcloudrun URL Configuration
+"""reach-api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from wxcloudrun import views
+from . import views
 from django.conf.urls import url
 
 urlpatterns = (
