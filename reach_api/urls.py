@@ -1,4 +1,4 @@
-"""reach-api URL Configuration
+"""reach_api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,13 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from . import views
+from reach_api import views
 from django.conf.urls import url
 
 urlpatterns = (
     # 计数器接口
-    url(r'^^api/count(/)?$', views.counter),
+    url(r'^api/count(/)?$', views.counter),
 
     # 获取主页
     url(r'(/)?$', views.index),
+    url(r'/current/time', views.get_current_time())
 )

@@ -1,5 +1,6 @@
 import json
 import logging
+from datetime import datetime
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -7,6 +8,12 @@ from .models import Counters
 
 
 logger = logging.getLogger('log')
+
+def get_current_time():
+    now = datetime.now()
+
+    # 按照指定格式打印当前日期和时间
+    return now.strftime("%Y-%m-%d %H:%M:%S")
 
 
 def index(request, _):
