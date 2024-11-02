@@ -23,5 +23,5 @@ urlpatterns = (
 
     # 获取主页
     url(r'(/)?$', views.index),
-    url(r'current/time', views.get_current_time)
+    url(r'^current/time(/)$', views.get_current_time)
 )
