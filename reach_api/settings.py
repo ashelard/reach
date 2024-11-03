@@ -68,7 +68,7 @@ WSGI_APPLICATION = 'reach_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get("MYSQL_DATABASE", 'django_demo'),
+        'NAME': os.environ.get("MYSQL_DATABASE", 'idol-web'),
         'USER': os.environ.get("MYSQL_USERNAME"),
         'HOST': os.environ.get("MYSQL_ADDRESS").split(':')[0],
         'PORT': os.environ.get("MYSQL_ADDRESS").split(':')[1],

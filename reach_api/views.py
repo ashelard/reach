@@ -5,7 +5,7 @@ from datetime import datetime
 import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
-from .models import Counters
+from .models import Counters, SpiderAuth
 
 logger = logging.getLogger('log')
 
@@ -102,3 +102,49 @@ def update_count(request):
     else:
         return JsonResponse({'code': -1, 'errorMsg': 'action参数错误'},
                             json_dumps_params={'ensure_ascii': False})
+
+
+def get_spider_auth_by_name(request):
+    name = request.GET.get('name')
+    data = SpiderAuth.objects.get(name=name)
+    return JsonResponse({'code': 0, 'data': data},
+                        json_dumps_params={'ensure_ascii': False})
+
+
+def add_spider_auth(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    auth = SpiderAuth()
+    auth.name = body['name']
+    auth.wid = body['wid']
+    auth.wuid = body['wuid']
+    auth.cookie = body['cookie']
+
+    auth.save()
+
+    return JsonResponse({'code': 0, 'data': 'success'},
+                        json_dumps_params={'ensure_ascii': False})
+
+
+def update_spider_auth_cookie(request):
+    name = request.GET.get('name')
+    wid = request.GET.get('wid')
+    wuid = request.GET.get('wuid')
+    cookie = request.GET.get('name')
+    auth = None
+    if name:
+        auth = SpiderAuth.objects.get(name=name)
+    elif wid:
+        auth = SpiderAuth.objects.get(wid=wid)
+    elif wuid:
+        auth = SpiderAuth.objects.get(wuid=wuid)
+
+    if not auth:
+        return JsonResponse({'code': 0, 'data': 'not exist,can\'t update'},
+                            json_dumps_params={'ensure_ascii': False})
+
+    auth.cookie = cookie
+    auth.save()
+
+    return JsonResponse({'code': 0, 'data': auth},
+                        json_dumps_params={'ensure_ascii': False})
