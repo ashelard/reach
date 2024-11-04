@@ -22,6 +22,10 @@ urlpatterns = (
     url(r'^api/count(/)?$', views.counter),
 
     url(r'^current/time(/)?$', views.get_current_time),
+
+    url(r'^/api/ruler/spider_auth/get_by_name(/)?$', views.get_spider_auth_by_name),
+    url(r'^/api/ruler/spider_auth/add(/)?$', views.add_spider_auth),
+    url(r'^/api/ruler/spider_auth/update(/)?$', views.update_spider_auth_cookie),
     # 获取主页
     url(r'(/)?$', views.index),
 )

@@ -21,7 +21,6 @@ class SpiderAuth(models.Model):
     id = models.AutoField
     name = models.CharField(max_length=128)
     wid = models.BigIntegerField(max_length=20)
-    wuid = models.CharField(max_length=64)
     cookie = models.CharField(max_length=2048)
     expired = models.BooleanField(default=False)
     createdAt = models.DateTimeField(default=datetime.now(), )
