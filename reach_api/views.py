@@ -117,7 +117,6 @@ def add_spider_auth(request, _):
     auth = SpiderAuth()
     auth.name = body['name']
     auth.wid = body['wid']
-    auth.wuid = body['wuid']
     auth.cookie = body['cookie']
 
     auth.save()
@@ -129,15 +128,12 @@ def add_spider_auth(request, _):
 def update_spider_auth_cookie(request, _):
     name = request.GET.get('name')
     wid = request.GET.get('wid')
-    wuid = request.GET.get('wuid')
     cookie = request.GET.get('name')
     auth = None
     if name:
         auth = SpiderAuth.objects.get(name=name)
     elif wid:
         auth = SpiderAuth.objects.get(wid=wid)
-    elif wuid:
-        auth = SpiderAuth.objects.get(wuid=wuid)
 
     if not auth:
         return JsonResponse({'code': 0, 'data': 'not exist,can\'t update'},
