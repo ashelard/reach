@@ -104,14 +104,14 @@ def update_count(request):
                             json_dumps_params={'ensure_ascii': False})
 
 
-def get_spider_auth_by_name(request):
+def get_spider_auth_by_name(request, _):
     name = request.GET.get('name')
     data = SpiderAuth.objects.get(name=name)
     return JsonResponse({'code': 0, 'data': data},
                         json_dumps_params={'ensure_ascii': False})
 
 
-def add_spider_auth(request):
+def add_spider_auth(request, _):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     auth = SpiderAuth()
@@ -126,7 +126,7 @@ def add_spider_auth(request):
                         json_dumps_params={'ensure_ascii': False})
 
 
-def update_spider_auth_cookie(request):
+def update_spider_auth_cookie(request, _):
     name = request.GET.get('name')
     wid = request.GET.get('wid')
     wuid = request.GET.get('wuid')
