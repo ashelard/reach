@@ -126,9 +126,11 @@ def add_spider_auth(request, _):
 
 
 def update_spider_auth_cookie(request, _):
-    name = request.GET.get('name')
-    wid = request.GET.get('wid')
-    cookie = request.GET.get('name')
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    name = body.get('name', None)
+    wid = body.get('wid', None)
+    cookie = body.get('name', None)
     auth = None
     if name:
         auth = SpiderAuth.objects.get(name=name)
@@ -139,7 +141,9 @@ def update_spider_auth_cookie(request, _):
         return JsonResponse({'code': 0, 'data': 'not exist,can\'t update'},
                             json_dumps_params={'ensure_ascii': False})
 
-    auth.cookie = cookie
+    if cookie:
+        auth.cookie = cookie
+
     auth.save()
 
     return JsonResponse({'code': 0, 'data': auth},
