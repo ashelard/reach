@@ -12,9 +12,9 @@ from http.cookies import SimpleCookie
 
 from scrapy import Spider
 from scrapy.http import Request
-from spiders.common import parse_tweet_info, parse_long_tweet, parse_retweet_long_tweet
 
 from reach_api.models import SpiderAuth
+from reach_api.wspider.spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
 
 
 class TweetSpiderByUserID(Spider):
