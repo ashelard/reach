@@ -7,7 +7,7 @@ django.setup()
 
 BOT_NAME = 'spider'
 
-SPIDER_MODULES = ['spiders']
+SPIDER_MODULES = ['wb_spider.wspider.spiders']
 NEWSPIDER_MODULE = 'spiders'
 
 ROBOTSTXT_OBEY = False
@@ -28,5 +28,5 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 ITEM_PIPELINES = {
-    'pipelines.JsonWriterPipeline': 300,
+    'wb_spider.wspider.pipelines.JsonWriterPipeline': 300,
 }
