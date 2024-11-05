@@ -5,7 +5,10 @@ from datetime import datetime
 import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
+
+import reach_api
 from .models import Counters, SpiderAuth
+from .wspider import run_spider
 
 logger = logging.getLogger('log')
 
@@ -20,6 +23,10 @@ def get_current_time(request, _):
     logger.info('get current time result: {}'.format(time))
     return JsonResponse({'code': 0, 'data': time},
                         json_dumps_params={'ensure_ascii': False})
+
+
+def test_spider(request,_):
+    run_spider.run()
 
 
 def index(request, _):
@@ -130,7 +137,7 @@ def update_spider_auth_cookie(request, _):
     body = json.loads(body_unicode)
     name = body.get('name', None)
     wid = body.get('wid', None)
-    cookie = body.get('name', None)
+    cookie = body.get('cookie', None)
     auth = None
     if name:
         auth = SpiderAuth.objects.get(name=name)
@@ -146,5 +153,5 @@ def update_spider_auth_cookie(request, _):
 
     auth.save()
 
-    return JsonResponse({'code': 0, 'data': auth},
+    return JsonResponse({'code': 0, 'data': "success"},
                         json_dumps_params={'ensure_ascii': False})
