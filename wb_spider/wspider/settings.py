@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-import os
-import django
+# import os
+# import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reach_api.settings')
-django.setup()
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reach_api.settings')
+# django.setup()
 
 BOT_NAME = 'spider'
 
