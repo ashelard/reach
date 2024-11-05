@@ -3,7 +3,7 @@ import os
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-from reach_api.wspider.spiders.tweet_by_user_id import TweetSpiderByUserID
+from wspider.spiders.tweet_by_user_id import TweetSpiderByUserID
 
 logger = logging.getLogger('log')
 

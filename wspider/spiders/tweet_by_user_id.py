@@ -1,20 +1,12 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-Author: nghuyong
-Mail: nghuyong@163.com
-Created Time: 2020/4/14
-"""
 import datetime
 import json
-import re
 from http.cookies import SimpleCookie
 
 from scrapy import Spider
 from scrapy.http import Request
 
 from reach_api.models import SpiderAuth
-from reach_api.wspider.spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
+from wspider.spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
 
 
 class TweetSpiderByUserID(Spider):

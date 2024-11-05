@@ -6,9 +6,8 @@ import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
 
-import reach_api
 from .models import Counters, SpiderAuth
-from .wspider import run_spider
+from wspider import run_spider
 
 logger = logging.getLogger('log')
 
