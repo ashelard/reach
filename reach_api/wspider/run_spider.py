@@ -3,14 +3,15 @@ import os
 import sys
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-from spiders.tweet_by_user_id import TweetSpiderByUserID
-from spiders.tweet_by_keyword import TweetSpiderByKeyword
-from spiders.tweet_by_tweet_id import TweetSpiderByTweetID
-from spiders.comment import CommentSpider
-from spiders.follower import FollowerSpider
-from spiders.user import UserSpider
-from spiders.fan import FanSpider
-from spiders.repost import RepostSpider
+
+from reach_api.wspider.spiders.comment import CommentSpider
+from reach_api.wspider.spiders.fan import FanSpider
+from reach_api.wspider.spiders.follower import FollowerSpider
+from reach_api.wspider.spiders.repost import RepostSpider
+from reach_api.wspider.spiders.tweet_by_keyword import TweetSpiderByKeyword
+from reach_api.wspider.spiders.tweet_by_tweet_id import TweetSpiderByTweetID
+from reach_api.wspider.spiders.tweet_by_user_id import TweetSpiderByUserID
+from reach_api.wspider.spiders.user import UserSpider
 
 logger = logging.getLogger('log')
 
