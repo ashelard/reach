@@ -12,6 +12,8 @@ from spiders.user import UserSpider
 from spiders.fan import FanSpider
 from spiders.repost import RepostSpider
 
+logger = logging.getLogger('log')
+
 # if __name__ == '__main__':
 #     mode = sys.argv[1]
 #     os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
@@ -32,7 +34,7 @@ from spiders.repost import RepostSpider
 #     process.start()
 
 def run():
-    logging.info("-------------start run spider-----------------")
+    logger.info("-------------start run spider-----------------")
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
     settings = get_project_settings()
     process = CrawlerProcess(settings)
