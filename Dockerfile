@@ -15,9 +15,9 @@ RUN apt-get install ca-certificates
 #&& rm -rf /var/cache/apk/*  \
 
 #RUN sed -i 's/deb.debian.org/mirrors.tencent.com/g' /etc/apt/sources.list \
-RUN apt-get update \
-&& apt-get install python3 \
-&& rm -rf /var/lib/apt/lists/*
+#RUN apt-get update \
+#&& apt-get install python3 \
+#&& rm -rf /var/lib/apt/lists/*
 
 
 # 拷贝当前项目到/app目录下(.dockerignore中文件除外)
