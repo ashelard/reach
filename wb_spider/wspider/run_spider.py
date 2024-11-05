@@ -37,7 +37,9 @@ def run():
     }
     process.crawl(mode_to_spider['tweet_by_user_id'])
     # the script will block here until the crawling is finished
+    logger.info("-------------process start start-----------------")
     process.start()
+    logger.info("-------------process start end-----------------")
 
 
 # if __name__ == '__main__':

@@ -11,8 +11,8 @@ class JsonWriterPipeline(object):
 
     def __init__(self):
         self.file = None
-        if not os.path.exists('../output'):
-            os.mkdir('../output')
+        # if not os.path.exists('../output'):
+        #     os.mkdir('../output')
 
     # def process_item(self, item, spider):
     #     """
@@ -31,5 +31,5 @@ class JsonWriterPipeline(object):
     def process_item(self, item, spider):
         item['crawl_time'] = int(time.time())
         line = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        spider.logger.info(f'spider get new info: {line}')
+        # spider.logger.info(f'spider get new info: {line}')
         return item
