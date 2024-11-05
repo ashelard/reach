@@ -7,11 +7,11 @@ FROM python:3.10-slim
 # RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone
 
 # 使用 HTTPS 协议访问容器云调用证书安装
-RUN apk add ca-certificates
+RUN apt-get install ca-certificates
 
 # 选用国内镜像源以提高下载速度
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories \
-&& apk add --update --no-cache python3 py3-pip \
+&& apt-get update && apt-get install --no-cache python3 py3-pip \
 && rm -rf /var/cache/apk/*
 
 # 拷贝当前项目到/app目录下(.dockerignore中文件除外)
