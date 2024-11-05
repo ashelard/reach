@@ -16,7 +16,7 @@ RUN apt-get install ca-certificates
 
 #RUN sed -i 's/deb.debian.org/mirrors.tencent.com/g' /etc/apt/sources.list \
 RUN apt-get update \
-&& apt-get install --no-cache python3 py3-pip \
+&& apt-get install python3 py3-pip \
 && rm -rf /var/lib/apt/lists/*
 
 
