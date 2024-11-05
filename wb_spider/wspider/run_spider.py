@@ -29,7 +29,7 @@ logger = logging.getLogger('log')
 
 def run():
     logger.info("-------------start run spider-----------------")
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'wb_spider.wspider.settings'
     settings = get_project_settings()
     process = CrawlerProcess(settings)
     mode_to_spider = {
