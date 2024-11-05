@@ -21,6 +21,7 @@ class TweetSpiderByUserID(Spider):
         爬虫入口
         """
         # 这里user_ids可替换成实际待采集的数据
+        self.log("------------------------tweetByUserId entrance!!!!---------------")
         logging.info("here is  tweet by user id")
         user_ids = ['7716940453']
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
