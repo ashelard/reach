@@ -1,5 +1,6 @@
 import logging
 import os
+import django
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -31,6 +32,10 @@ def run():
     logger.info("-------------start run spider-----------------")
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'wb_spider.wspider.settings'
     settings = get_project_settings()
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reach_api.settings')
+    django.setup()
+
     process = CrawlerProcess(settings)
     mode_to_spider = {
         'tweet_by_user_id': TweetSpiderByUserID,
