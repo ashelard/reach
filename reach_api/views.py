@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Counters, SpiderAuth
-from wspider import run_spider
+from wb_spider.wspider import run_spider
 
 logger = logging.getLogger('log')
 

@@ -33,18 +33,18 @@ class SpiderAuth(models.Model):
         db_table = 'spider_auth'
 
 
-# class WbMessage(models.Model):
-#     id = models.AutoField
-#     wid = models.BigIntegerField()
-#     wuid = models.BigIntegerField()
-#     content = models.CharField(max_length=2048)
-#     consumed = models.BooleanField(default=False)
-#     publishAt = models.DateTimeField(default=datetime.now(), )
-#     createdAt = models.DateTimeField(default=datetime.now(), )
-#     updatedAt = models.DateTimeField(default=datetime.now(), )
-#
-#     def __str__(self):
-#         return self.name
-#
-#     class Meta:
-#         db_table = 'wb_message'
+class WbMessage(models.Model):
+    id = models.AutoField
+    wid = models.BigIntegerField()
+    wuid = models.BigIntegerField()
+    content = models.CharField(max_length=4096)
+    consumed = models.BooleanField(default=False)
+    publishAt = models.DateTimeField(default=datetime.now(), )
+    createdAt = models.DateTimeField(default=datetime.now(), )
+    updatedAt = models.DateTimeField(default=datetime.now(), )
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        db_table = 'wb_message'
