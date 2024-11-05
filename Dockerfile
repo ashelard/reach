@@ -11,6 +11,7 @@ RUN apk add ca-certificates
 
 # 选用国内镜像源以提高下载速度
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories \
+&& apt-get install -y gcc g++ make \
 && apk add --update --no-cache python3 py3-pip \
 && rm -rf /var/cache/apk/*
 
