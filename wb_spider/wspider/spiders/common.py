@@ -61,6 +61,8 @@ def parse_user_info(data):
     """
     解析用户信息
     """
+    if not data:
+        return None
     # 基础信息
     user = {
         "_id": str(data['id']),
@@ -93,17 +95,17 @@ def parse_tweet_info(data):
         "created_at": parse_time(data['created_at']),
         "geo": data.get('geo', None),
         "ip_location": data.get('region_name', None),
-        "reposts_count": data.get['reposts_count', None],
-        "comments_count": data.get['comments_count', None],
-        "attitudes_count": data.get['attitudes_count', None],
-        "source": data.get['source', None],
+        "reposts_count": data.get('reposts_count', None),
+        "comments_count": data.get('comments_count', None),
+        "attitudes_count": data.get('attitudes_count', None),
+        "source": data.get('source', None),
         "content": data['text_raw'].replace('\u200b', ''),
         "pic_urls": ["https://wx1.sinaimg.cn/orj960/" + pic_id for pic_id in data.get('pic_ids', [])],
-        "pic_num": data['pic_num'],
+        "pic_num": data.get('pic_num',None),
         'isLongText': False,
         'is_retweet': False,
         'hided': False,
-        "user": parse_user_info(data['user']),
+        "user": parse_user_info(data.get('user',None)),
     }
     if not 'isLongText' in data:
         tweet['hided'] = True
@@ -150,7 +152,7 @@ def parse_retweet_long_tweet(response):
     """
     data = json.loads(response.text)['data']
     item = response.meta['item']
-    item['mblogid'] = data['mblogid']
-    item['id'] = data['id']
+    # item['mblogid'] = data['mblogid']
+    # item['id'] = data['id']
     item['content'] = data['longTextContent']
     yield item
