@@ -27,6 +27,8 @@ def get_current_time(request, _):
 def test_spider(request,_):
     logger.info("test spider entrance")
     run_spider.run()
+    return JsonResponse({'code': 0, 'data': "success"},
+                        json_dumps_params={'ensure_ascii': False})
 
 
 def index(request, _):
