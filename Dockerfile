@@ -10,9 +10,15 @@ FROM python:3.10-slim
 RUN apt-get install ca-certificates
 
 # 选用国内镜像源以提高下载速度
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories \
-&& apt-get update && apt-get install --no-cache python3 py3-pip \
-&& rm -rf /var/cache/apk/*
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories \
+#&& apt-get update && apt-get install --no-cache python3 py3-pip \
+#&& rm -rf /var/cache/apk/*  \
+
+RUN sed -i 's/deb.debian.org/mirrors.tencent.com/g' /etc/apt/sources.list \
+&& apt-get update \
+&& apt-get install --no-cache python3 py3-pip \
+&& rm -rf /var/lib/apt/lists/*
+
 
 # 拷贝当前项目到/app目录下(.dockerignore中文件除外)
 COPY . /app
