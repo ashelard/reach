@@ -7,7 +7,7 @@ from scrapy import Spider
 from scrapy.http import Request
 
 # from reach_api.models import SpiderAuth
-from wb_spider.wspider.spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
+from ..spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
 
 
 class TweetSpiderByUserID(Spider):
