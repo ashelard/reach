@@ -15,7 +15,6 @@ class TweetSpiderByUserID(Spider):
     """
     name = "tweet_spider_by_user_id"
 
-    @property
     def start_requests(self):
         """
         爬虫入口
