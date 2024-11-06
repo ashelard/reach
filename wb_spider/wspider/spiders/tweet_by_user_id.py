@@ -48,8 +48,6 @@ class TweetSpiderByUserID(Spider):
         """
         cookies = self.get_cookies()
         data = json.loads(response.text)
-        self.log(response.text)
-        self.log("------------------------parse response----------------")
         tweets = data['data']['list']
         for tweet in tweets:
             item = parse_tweet_info(tweet)
