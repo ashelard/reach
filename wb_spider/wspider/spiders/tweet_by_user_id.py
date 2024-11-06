@@ -47,7 +47,7 @@ class TweetSpiderByUserID(Spider):
         """
         网页解析
         """
-        cookies = self.get_cookies()
+        cookies = self.get_cookies_local()
         data = json.loads(response.text)
         tweets = data['data']['list']
         for tweet in tweets:
@@ -76,5 +76,14 @@ class TweetSpiderByUserID(Spider):
         # cookie_content="XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
         cookie = SimpleCookie()
         cookie.load(cookie_content)
+        cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
+        return cookies_dict
+
+    def get_cookies_local(self):
+        # auth = SpiderAuth.objects.get(name='initial_seven')
+        # cookie_content = auth.cookie
+        cookie_content1 = "XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
+        cookie = SimpleCookie()
+        cookie.load(cookie_content1)
         cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
         return cookies_dict
