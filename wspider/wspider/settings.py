@@ -7,7 +7,7 @@
 
 BOT_NAME = 'spider'
 
-SPIDER_MODULES = ['wb_spider.wspider.spiders']
+SPIDER_MODULES = ['wspider.wspider.spiders']
 NEWSPIDER_MODULE = 'spiders'
 
 ROBOTSTXT_OBEY = False
@@ -23,12 +23,11 @@ CONCURRENT_REQUESTS = 16
 DOWNLOAD_DELAY = 1
 
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
+    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 100,
     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None,
-    'middlewares.IPProxyMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
 }
 
 ITEM_PIPELINES = {
-    'wb_spider.wspider.pipelines.JsonWriterPipeline': 300,
+    'wspider.wspider.pipelines.JsonWriterPipeline': 300,
 }

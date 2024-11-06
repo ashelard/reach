@@ -1,12 +1,17 @@
 import logging
 import os
-import django
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
+import subprocess
 
-from wb_spider.wspider.spiders.tweet_by_user_id import TweetSpiderByUserID
+from celery import shared_task
+import django
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
+from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor, defer
+
+from wspider.wspider.spiders.tweet_by_user_id import TweetSpiderByUserID
 
 logger = logging.getLogger('log')
+
 
 # if __name__ == '__main__':
 #     mode = sys.argv[1]
@@ -30,11 +35,22 @@ logger = logging.getLogger('log')
 
 def run():
     logger.info("-------------start run spider-----------------")
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'wb_spider.wspider.settings'
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'wspider.wspider.settings'
     settings = get_project_settings()
 
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reach_api.settings')
     # django.setup()
+
+    # runner = CrawlerRunner(settings=settings)
+    #
+    # @defer.inlineCallbacks
+    # def crawl():
+    #     yield runner.crawl(TweetSpiderByUserID)
+    #     reactor.stop()
+    #
+    # crawl()
+    #
+    # reactor.run()
 
     process = CrawlerProcess(settings)
     mode_to_spider = {
@@ -46,6 +62,9 @@ def run():
     process.start()
     logger.info("-------------process start end-----------------")
 
+
+def run_sub():
+    subprocess.Popen(['scrapy', 'crawl', 'tweet_spider_by_user_id'], shell=True)
 
 # if __name__ == '__main__':
 #     logger.info("-------------start run spider-----------------")

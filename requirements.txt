@@ -7,3 +7,5 @@ sqlparse==0.4.2
 
 Scrapy~=2.11.2
 python_dateutil
+python-dateutil~=2.9.0.post0
+celery~=5.4.0
