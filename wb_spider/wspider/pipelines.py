@@ -2,7 +2,11 @@ import json
 import time
 from datetime import datetime
 
-from reach_api.models import WbMessage
+import requests
+
+
+#
+# from reach_api.models import WbMessage
 
 
 class JsonWriterPipeline(object):
@@ -31,12 +35,19 @@ class JsonWriterPipeline(object):
 
     def process_item(self, item, spider):
         item['crawl_time'] = int(time.time())
-        wb = WbMessage()
-        wb.content = item['content']
-        wb.consumed = False
-        wb.createdAt = datetime.now()
-        wb.updatedAt = datetime.now()
-        wb.save()
-        line = json.dumps(dict(item), ensure_ascii=False) + "\n"
-        spider.logger.info(f'spider get new info: {line}')
+        # wb = WbMessage()
+        # wb.content = item['content']
+        # wb.consumed = False
+        # wb.createdAt = datetime.now()
+        # wb.updatedAt = datetime.now()
+        # wb.save()
+        # line = json.dumps(dict(item), ensure_ascii=False) + "\n"
+        # spider.logger.info(f'spider get new info: {line}')
+        url = 'http://localhost:80/api/message/add'
+        data = {
+            'content': item['content']
+        }
+
+        requests.post(url, data=data)
+        spider.logger.info('send message to django')
         return item

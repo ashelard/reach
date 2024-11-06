@@ -23,6 +23,7 @@ urlpatterns = (
 
     url(r'^current/time(/)?$', views.get_current_time),
     url(r'^test/spider(/)?$', views.test_spider),
+    url(r'^api/message/add(/)?$', views.add_wb_message),
 
     url(r'^api/ruler/spider_auth/get_by_name(/)?$', views.get_spider_auth_by_name),
     url(r'^api/ruler/spider_auth/add(/)?$', views.add_spider_auth),
