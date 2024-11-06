@@ -23,7 +23,7 @@ CONCURRENT_REQUESTS = 16
 DOWNLOAD_DELAY = 1
 
 DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
+    'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 100,
     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None,
     'middlewares.IPProxyMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
