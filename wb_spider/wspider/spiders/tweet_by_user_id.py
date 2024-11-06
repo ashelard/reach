@@ -6,7 +6,7 @@ from http.cookies import SimpleCookie
 from scrapy import Spider
 from scrapy.http import Request
 
-# from reach_api.models import SpiderAuth
+from reach_api.models import SpiderAuth
 from ..spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
 
 
@@ -21,14 +21,13 @@ class TweetSpiderByUserID(Spider):
         爬虫入口
         """
         # 这里user_ids可替换成实际待采集的数据
-        self.log("------------------------tweetByUserId entrance!!!!---------------")
-        logging.info("here is  tweet by user id")
         user_ids = ['7716940453']
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
         is_crawl_specific_time_span = True
         start_time = datetime.datetime(year=2024, month=10, day=11)
         end_time = datetime.datetime(year=2024, month=10, day=12)
         cookies = self.get_cookies()
+        # logging.info(f"get cookie from db,cookie is{cookies}")
 
         for user_id in user_ids:
             url = f"https://weibo.com/ajax/statuses/searchProfile?uid={user_id}&page=1&hasori=1&hastext=1&haspic=1&hasvideo=1&hasmusic=1&hasret=1"
@@ -73,9 +72,9 @@ class TweetSpiderByUserID(Spider):
             yield Request(url, cookies=cookies, callback=self.parse, meta={'user_id': user_id, 'page_num': page_num + 1})
 
     def get_cookies(self):
-        # auth = SpiderAuth.objects.get(name='initial_seven')
-        # cookie_content = auth.cookie
-        cookie_content="XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
+        auth = SpiderAuth.objects.get(name='initial_seven')
+        cookie_content = auth.cookie
+        # cookie_content="XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
         cookie = SimpleCookie()
         cookie.load(cookie_content)
         cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
