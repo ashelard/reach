@@ -20,7 +20,6 @@ class TweetSpiderByUserID(Spider):
         """
         爬虫入口
         """
-        logging.info("tweet by user id entrance")
         # 这里user_ids可替换成实际待采集的数据
         user_ids = ['7716940453']
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
@@ -74,7 +73,6 @@ class TweetSpiderByUserID(Spider):
     def get_cookies(self):
         auth = SpiderAuth.objects.get(name='initial_seven')
         cookie_content = auth.cookie
-        logging.info(f"get cookie from db,cookie is{cookie_content}")
         # cookie_content="XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
         cookie = SimpleCookie()
         cookie.load(cookie_content)
