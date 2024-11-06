@@ -36,6 +36,7 @@ class SpiderAuth(models.Model):
 class WbMessage(models.Model):
     id = models.AutoField
     wid = models.BigIntegerField()
+    mblogid = models.CharField(max_length=20)
     wuid = models.BigIntegerField()
     content = models.CharField(max_length=4096)
     consumed = models.BooleanField(default=False)
