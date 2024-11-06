@@ -6,7 +6,6 @@ from http.cookies import SimpleCookie
 from scrapy import Spider
 from scrapy.http import Request
 
-from reach_api.models import SpiderAuth
 from ..spiders.common import parse_tweet_info, parse_retweet_long_tweet, parse_long_tweet
 
 
