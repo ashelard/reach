@@ -48,6 +48,5 @@ class JsonWriterPipeline(object):
             'content': item['content']
         }
 
-        requests.post(url, data=data)
-        spider.logger.info('send message to django')
+        requests.post(url, json=data)
         return item
