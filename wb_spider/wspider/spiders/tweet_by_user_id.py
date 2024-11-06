@@ -16,6 +16,7 @@ class TweetSpiderByUserID(Spider):
     """
     name = "tweet_spider_by_user_id"
 
+    @property
     def start_requests(self):
         """
         爬虫入口
@@ -26,7 +27,7 @@ class TweetSpiderByUserID(Spider):
         is_crawl_specific_time_span = True
         start_time = datetime.datetime(year=2024, month=10, day=11)
         end_time = datetime.datetime(year=2024, month=10, day=12)
-        cookies = self.get_cookies()
+        cookies = self.get_cookies_local()
 
         for user_id in user_ids:
             url = f"https://weibo.com/ajax/statuses/searchProfile?uid={user_id}&page=1&hasori=1&hastext=1&haspic=1&hasvideo=1&hasmusic=1&hasret=1"
@@ -70,6 +71,7 @@ class TweetSpiderByUserID(Spider):
             url = response.url.replace(f'page={page_num}', f'page={page_num + 1}')
             yield Request(url, cookies=cookies, callback=self.parse, meta={'user_id': user_id, 'page_num': page_num + 1})
 
+
     def get_cookies(self):
         auth = SpiderAuth.objects.get(name='initial_seven')
         cookie_content = auth.cookie
@@ -78,6 +80,7 @@ class TweetSpiderByUserID(Spider):
         cookie.load(cookie_content)
         cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
         return cookies_dict
+
 
     def get_cookies_local(self):
         # auth = SpiderAuth.objects.get(name='initial_seven')
