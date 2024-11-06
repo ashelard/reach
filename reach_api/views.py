@@ -8,7 +8,7 @@ import requests
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from .models import Counters, SpiderAuth
+from .models import Counters, SpiderAuth, WbMessage
 from wb_spider.wspider import run_spider
 
 logger = logging.getLogger('log')
@@ -165,4 +165,17 @@ def update_spider_auth_cookie(request, _):
     auth.save()
 
     return JsonResponse({'code': 0, 'data': "success"},
+                        json_dumps_params={'ensure_ascii': False})
+
+
+def add_wb_message(request, _):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    msg = WbMessage()
+    msg.content = body['content']
+    msg.createdAt = datetime.now()
+    msg.updatedAt = datetime.now()
+
+    msg.save()
+    return JsonResponse({'code': 0, 'data': 'success'},
                         json_dumps_params={'ensure_ascii': False})
