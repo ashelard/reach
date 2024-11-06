@@ -4,6 +4,7 @@ import threading
 from datetime import datetime
 
 import pytz
+import requests
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -25,10 +26,16 @@ def get_current_time(request, _):
                         json_dumps_params={'ensure_ascii': False})
 
 
-def test_spider(request,_):
-    logger.info("test spider entrance")
-    thread = threading.Thread(target=run_spider.run)
-    thread.start()
+def test_spider(request, _):
+    url = 'http://localhost:6800/schedule.json'
+    data = {
+        'project': 'wb_spider',
+        'spider': 'tweet_spider_by_user_id'
+    }
+
+    requests.post(url, data=data)
+    logger.info("test spider request send success")
+
     return JsonResponse({'code': 0, 'data': "success"},
                         json_dumps_params={'ensure_ascii': False})
 
