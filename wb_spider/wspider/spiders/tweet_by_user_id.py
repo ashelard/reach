@@ -3,6 +3,7 @@ import json
 import logging
 from http.cookies import SimpleCookie
 
+import requests
 from scrapy import Spider
 from scrapy.http import Request
 
@@ -67,18 +68,27 @@ class TweetSpiderByUserID(Spider):
         if tweets:
             user_id, page_num = response.meta['user_id'], response.meta['page_num']
             url = response.url.replace(f'page={page_num}', f'page={page_num + 1}')
-            yield Request(url, cookies=cookies, callback=self.parse, meta={'user_id': user_id, 'page_num': page_num + 1})
-
+            yield Request(url, cookies=cookies, callback=self.parse,
+                          meta={'user_id': user_id, 'page_num': page_num + 1})
 
     def get_cookies(self):
         # auth = SpiderAuth.objects.get(name='initial_seven')
         # cookie_content = auth.cookie
-        cookie_content="XSRF-TOKEN=-_34ldOD3TDfm471Bw4T7h9s; SCF=Al-wwqBnYDUTOiAKXyHFKF3BLku9rHlZm3CodwCcAjgut8vsWgwhExQ6iaxbnZz2kLebT5rJ5F3VUzfkLO2zHuc.; SUB=_2A25KJhNkDeRhGeBH4lYV-C7IzDuIHXVpWiqsrDV8PUNbmtAGLRGnkW9NQY9cXFdjpgnHnDEh-DGyICYIi0zxsTXA; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9WWsiiwL_L3C5OsvNWHjHzqY5JpX5KzhUgL.Foq41KBX1h5XS0M2dJLoI7fDdJLXIg8jPNSLUJHV; ALF=02_1732898868; WBPSESS=naibc0aCiXpfZ2pl7nVUNypaEClZSB-sS-521hZt68kEvU3C5nSyGIdcXTn4GBHJtveXs69hyU-rGJkdhH5WwZv8C1kmvzMexFmCRPp4EoRvkliZjhF9abrYg2k68KJdX8O3oJlzLf6-V6phPa8xig=="
+        url = 'http://localhost:6800/api/ruler/spider_auth/get_by_name'
+        data = {
+            'name': 'initial_seven'
+        }
+
+        response = requests.post(url, data=data)
+        js = response.json()
+        if not js.get('data', {}).get('cookie', None):
+            return None
+        cookie_content = js.get('data').get('cookie')
+        self.log(f"get cookie content from django{cookie_content}")
         cookie = SimpleCookie()
         cookie.load(cookie_content)
         cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
         return cookies_dict
-
 
     # def get_cookies_local(self):
     #     # auth = SpiderAuth.objects.get(name='initial_seven')

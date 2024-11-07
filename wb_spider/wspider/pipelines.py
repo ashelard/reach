@@ -43,6 +43,7 @@ class JsonWriterPipeline(object):
         # wb.save()
         # line = json.dumps(dict(item), ensure_ascii=False) + "\n"
         # spider.logger.info(f'spider get new info: {line}')
+
         url = 'http://localhost:80/api/message/add'
         data = {
             'content': item['content']

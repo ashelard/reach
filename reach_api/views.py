@@ -124,7 +124,8 @@ def update_count(request):
 
 def get_spider_auth_by_name(request, _):
     name = request.GET.get('name')
-    data = SpiderAuth.objects.get(name=name)
+    auth = SpiderAuth.objects.get(name=name)
+    data = {key: value for key, value in auth.__dict__.items() if value}
     return JsonResponse({'code': 0, 'data': data},
                         json_dumps_params={'ensure_ascii': False})
 
