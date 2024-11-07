@@ -74,7 +74,7 @@ class TweetSpiderByUserID(Spider):
     def get_cookies(self):
         # auth = SpiderAuth.objects.get(name='initial_seven')
         # cookie_content = auth.cookie
-        url = 'http://localhost:6800/api/ruler/spider_auth/get_by_name'
+        url = 'http://localhost:80/api/ruler/spider_auth/get_by_name'
         data = {
             'name': 'initial_seven'
         }
