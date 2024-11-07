@@ -3,6 +3,7 @@ import json
 import logging
 from http.cookies import SimpleCookie
 
+import pytz
 import requests
 from scrapy import Spider
 from scrapy.http import Request
@@ -15,6 +16,7 @@ class TweetSpiderByUserID(Spider):
     用户推文数据采集
     """
     name = "tweet_spider_by_user_id"
+    tz = pytz.timezone('Asia/Shanghai')
 
     def start_requests(self):
         """
@@ -24,8 +26,8 @@ class TweetSpiderByUserID(Spider):
         user_ids = ['7716940453']
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
         is_crawl_specific_time_span = True
-        start_time = datetime.datetime(year=2024, month=10, day=11)
-        end_time = datetime.datetime(year=2024, month=10, day=12)
+        start_time = self.tz.localize(datetime.datetime(year=2024, month=10, day=11))
+        end_time = self.tz.localize(datetime.datetime(year=2024, month=10, day=12))
         cookies = self.get_cookies()
 
         for user_id in user_ids:
