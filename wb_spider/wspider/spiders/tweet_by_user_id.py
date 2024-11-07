@@ -80,7 +80,7 @@ class TweetSpiderByUserID(Spider):
             'name': 'initial_seven'
         }
 
-        response = requests.post(url, data=data)
+        response = requests.get(url, data=data)
         js = response.json()
         if not js.get('data', {}).get('cookie', None):
             return None
