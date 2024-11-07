@@ -56,8 +56,8 @@ class JsonWriterPipeline(object):
             "uid": item.get("uid", None),
             "nick_name": item.get("nick_name", None),
             "verified": item.get("verified", None),
-            'content': item.get('content', None)
-            'url': item.get('url', None)
+            'content': item.get('content', None),
+            'url': item.get('url', None),
         }
 
         requests.post(url, json=data)
