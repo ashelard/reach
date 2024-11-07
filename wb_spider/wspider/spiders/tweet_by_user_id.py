@@ -60,11 +60,12 @@ class TweetSpiderByUserID(Spider):
                 else:
                     item = parse_tweet_info(tweet['retweeted_status'])
                     yield item
-            if item['isLongText']:
+            elif item['isLongText']:
                 url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
                 yield Request(url, cookies=cookies, callback=parse_long_tweet, meta={'item': item})
             else:
                 yield item
+
         if tweets:
             user_id, page_num = response.meta['user_id'], response.meta['page_num']
             url = response.url.replace(f'page={page_num}', f'page={page_num + 1}')
