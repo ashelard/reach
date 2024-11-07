@@ -46,7 +46,17 @@ class JsonWriterPipeline(object):
 
         url = 'http://localhost:80/api/message/add'
         data = {
-            'content': item['content']
+            "wid": item.get("id", None),
+            "mblogid": item.get("mblogid", None),
+            "publish_at": item.get("created_at", None),
+            "origin_id": item.get("origin_id", None),
+            "origin_xid": item.get("origin_xid", None),
+            "origin_uid": item.get("origin_uid", None),
+            "origin_nick_name": item.get("origin_nick_name", None),
+            "uid": item.get("uid", None),
+            "nick_name": item.get("nick_name", None),
+            "verified": item.get("verified", None),
+            'content': item.get('content', None)
         }
 
         requests.post(url, json=data)

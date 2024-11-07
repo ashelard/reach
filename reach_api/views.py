@@ -179,7 +179,19 @@ def add_wb_message(request, _):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     msg = WbMessage()
-    msg.content = body['content']
+    msg.wid = body.get('wid', None)
+    msg.mblogid = body.get('mblogid', None)
+    msg.uid = body.get('uid', None)
+    msg.nick_name = body.get('nick_name', None)
+    msg.content = body.get('content', None)
+    msg.publish_at = datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S")
+    msg.verified = body.get('verified', None)
+    msg.origin_wid = body.get('origin_wid', None)
+    msg.origin_xid = body.get('origin_xid', None)
+    msg.origin_uid = body.get('origin_uid', None)
+    msg.origin_nick_name = body.get('origin_nick_name', None)
+
+    msg.consumed = False
     msg.createdAt = datetime.now()
     msg.updatedAt = datetime.now()
 

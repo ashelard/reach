@@ -36,11 +36,19 @@ class SpiderAuth(models.Model):
 class WbMessage(models.Model):
     id = models.AutoField
     wid = models.BigIntegerField()
-    # mblogid = models.CharField(max_length=20)
-    wuid = models.BigIntegerField()
+    mblogid = models.CharField(max_length=20)
+    uid = models.BigIntegerField()
+    nick_name = models.CharField(max_length=50)
     content = models.CharField(max_length=4096)
+    publish_at = models.DateTimeField(default=datetime.now(), )
+    verified = models.BooleanField(default=False)
+
+    origin_wid = models.BigIntegerField()
+    origin_xid = models.CharField(max_length=20)
+    origin_uid = models.BigIntegerField()
+    origin_nick_name = models.CharField(max_length=50)
+
     consumed = models.BooleanField(default=False)
-    publishAt = models.DateTimeField(default=datetime.now(), )
     createdAt = models.DateTimeField(default=datetime.now(), )
     updatedAt = models.DateTimeField(default=datetime.now(), )
 

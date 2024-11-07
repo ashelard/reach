@@ -65,7 +65,7 @@ def parse_user_info(data):
         return None
     # 基础信息
     user = {
-        "_id": str(data['id']),
+        "id": str(data['id']),
         "avatar_hd": data['avatar_hd'],
         "nick_name": data['screen_name'],
         "verified": data['verified'],
@@ -85,12 +85,30 @@ def parse_user_info(data):
     return user
 
 
+def simple_tweet(tweet):
+    simple = {
+        "id": tweet.get("id", None),
+        "mblogid": tweet.get("mblogid", None),
+        "content": tweet.get("content", None),
+        "created_at": tweet.get("created_at", None),
+        "origin_id": tweet.get("origin_id", None),
+        "origin_xid": tweet.get("origin_xid", None),
+        "origin_uid": tweet.get("origin_uid", None),
+        "origin_nick_name": tweet.get("origin_nick_name", None),
+    }
+    if tweet.get("user"):
+        simple["uid"] = tweet.get("user", {}).get("id", None)
+        simple["nick_name"] = tweet.get("user", {}).get("nick_name", None)
+        simple["verified"] = tweet.get("user", {}).get("verified", None)
+    return simple
+
+
 def parse_tweet_info(data):
     """
     解析推文数据
     """
     tweet = {
-        "_id": str(data['mid']),
+        "id": str(data['mid']),
         "mblogid": data['mblogid'],
         "created_at": parse_time(data['created_at']),
         "geo": data.get('geo', None),
@@ -101,11 +119,11 @@ def parse_tweet_info(data):
         "source": data.get('source', None),
         "content": data['text_raw'].replace('\u200b', ''),
         "pic_urls": ["https://wx1.sinaimg.cn/orj960/" + pic_id for pic_id in data.get('pic_ids', [])],
-        "pic_num": data.get('pic_num',None),
+        "pic_num": data.get('pic_num', None),
         'isLongText': False,
         'is_retweet': False,
         'hided': False,
-        "user": parse_user_info(data.get('user',None)),
+        "user": parse_user_info(data.get('user', None)),
     }
     if not 'isLongText' in data:
         tweet['hided'] = True
@@ -124,7 +142,7 @@ def parse_tweet_info(data):
             tweet['video'] = media_info['stream_url']
             # 视频播放量
             tweet['video_online_numbers'] = media_info.get('online_users_number', None)
-    tweet['url'] = f"https://weibo.com/{tweet['user']['_id']}/{tweet['mblogid']}"
+    tweet['url'] = f"https://weibo.com/{tweet['user']['id']}/{tweet['mblogid']}"
     if 'continue_tag' in data and data['isLongText']:
         tweet['isLongText'] = True
     if 'retweeted_status' in data:
@@ -143,16 +161,27 @@ def parse_long_tweet(response):
     data = json.loads(response.text)['data']
     item = response.meta['item']
     item['content'] = data['longTextContent']
-    yield item
+    yield simple_tweet(item)
 
 
-def parse_retweet_long_tweet(response):
-    """
-    解析转发的长推文
-    """
+def parse_long_retweet(response):
     data = json.loads(response.text)['data']
     item = response.meta['item']
-    # item['mblogid'] = data['mblogid']
-    # item['id'] = data['id']
+    origin = response.meta['origin']
     item['content'] = data['longTextContent']
-    yield item
+    item = fill_tweet_origin(item, origin)
+    yield simple_tweet(item)
+
+
+def fill_tweet_origin(item, origin):
+    """
+    解析长推文
+    """
+    item['origin_id'] = origin.get('id', None)
+    item['origin_xid'] = origin.get('mblogid', None)
+
+    if origin.get('user', None):
+        item['origin_uid'] = origin.get('user').get('id', None)
+        item['origin_nick_name'] = origin.get('user').get('nick_name', None)
+
+    return item
