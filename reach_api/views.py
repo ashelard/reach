@@ -184,6 +184,7 @@ def add_wb_message(request, _):
     msg.uid = body.get('uid', None)
     msg.nick_name = body.get('nick_name', None)
     msg.content = body.get('content', None)
+    msg.url = body.get('url', None)
     msg.publish_at = datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S")
     msg.verified = body.get('verified', None)
     msg.origin_wid = body.get('origin_wid', None)

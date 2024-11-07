@@ -49,7 +49,7 @@ class JsonWriterPipeline(object):
             "wid": item.get("id", None),
             "mblogid": item.get("mblogid", None),
             "publish_at": item.get("created_at", None),
-            "origin_id": item.get("origin_id", None),
+            "origin_wid": item.get("origin_wid", None),
             "origin_xid": item.get("origin_xid", None),
             "origin_uid": item.get("origin_uid", None),
             "origin_nick_name": item.get("origin_nick_name", None),
@@ -57,6 +57,7 @@ class JsonWriterPipeline(object):
             "nick_name": item.get("nick_name", None),
             "verified": item.get("verified", None),
             'content': item.get('content', None)
+            'url': item.get('url', None)
         }
 
         requests.post(url, json=data)

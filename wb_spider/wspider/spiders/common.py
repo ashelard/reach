@@ -91,10 +91,11 @@ def simple_tweet(tweet):
         "mblogid": tweet.get("mblogid", None),
         "content": tweet.get("content", None),
         "created_at": tweet.get("created_at", None),
-        "origin_id": tweet.get("origin_id", None),
+        "origin_wid": tweet.get("origin_wid", None),
         "origin_xid": tweet.get("origin_xid", None),
         "origin_uid": tweet.get("origin_uid", None),
         "origin_nick_name": tweet.get("origin_nick_name", None),
+        "url": tweet.get("url", None),
     }
     if tweet.get("user"):
         simple["uid"] = tweet.get("user", {}).get("id", None)
@@ -177,7 +178,7 @@ def fill_tweet_origin(item, origin):
     """
     解析长推文
     """
-    item['origin_id'] = origin.get('id', None)
+    item['origin_wid'] = origin.get('id', None)
     item['origin_xid'] = origin.get('mblogid', None)
 
     if origin.get('user', None):

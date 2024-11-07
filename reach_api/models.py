@@ -40,6 +40,7 @@ class WbMessage(models.Model):
     uid = models.BigIntegerField()
     nick_name = models.CharField(max_length=50)
     content = models.CharField(max_length=4096)
+    url = models.CharField(max_length=512)
     publish_at = models.DateTimeField(default=datetime.now(), )
     verified = models.BooleanField(default=False)
 
