@@ -1,8 +1,10 @@
+import logging
+
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
 def job():
-    print("Job started")
+    logging.info("----------------------------Job started-------------------------------")
 
 
 def start_scheduler():
