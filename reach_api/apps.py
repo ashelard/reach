@@ -1,3 +1,5 @@
+import logging
+
 from django.apps import AppConfig
 
 from reach_api.schedule.scheduler import start_scheduler
@@ -8,4 +10,5 @@ class AppNameConfig(AppConfig):
     name = 'reach_api'
 
     def ready(self):
+        logging.info("---------ready runned---------------")
         start_scheduler()

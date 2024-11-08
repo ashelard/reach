@@ -11,3 +11,4 @@ def start_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(job, 'interval', seconds=20)
     scheduler.start()
+    logging.info("---------scheduler runned---------------")
