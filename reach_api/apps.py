@@ -1,4 +1,5 @@
 import logging
+import os
 
 from django.apps import AppConfig
 
@@ -15,7 +16,7 @@ class AppNameConfig(AppConfig):
         if AppNameConfig.ready_run:
             return
         try:
-            self.logger.info("Ready method called.")
+            self.logger.info(f"Ready method called.PID:{os.getpid()}")
         except Exception as e:
             self.logger.error("Error in ready method: %s", e)
 
