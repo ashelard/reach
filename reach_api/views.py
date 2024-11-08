@@ -8,8 +8,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from twisted.internet import reactor
 
-from wspider.wspider import run_spider
-
 logger = logging.getLogger('log')
 
 
@@ -29,7 +27,7 @@ def test_spider(request, _):
     # if not reactor.running:
     #     reactor.run()
     # reactor.callWhenRunning(run_spider.run)
-    run_spider.run_sub()
+    # run_spider.run_sub()
     return JsonResponse({'code': 0, 'data': "success"},
                         json_dumps_params={'ensure_ascii': False})
 
