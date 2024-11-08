@@ -3,6 +3,8 @@ import os
 
 from django.apps import AppConfig
 
+import reach_api.schedule.scheduler
+
 
 class AppNameConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
@@ -11,4 +13,4 @@ class AppNameConfig(AppConfig):
     ready_run = False
 
     def ready(self):
-        import reach_api.schedule.scheduler
+        reach_api.schedule.scheduler.start_scheduler()
