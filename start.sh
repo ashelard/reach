@@ -9,3 +9,4 @@ scrapyd-deploy
 cd /app
 python3 manage.py start_task &
 python3 manage.py runserver 0.0.0.0:80
+
