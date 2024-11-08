@@ -22,6 +22,7 @@ urlpatterns = (
     url(r'^api/count(/)?$', views.counter),
 
     url(r'^current/time(/)?$', views.get_current_time),
+    url(r'^test/job(/)?$', views.test_job),
     url(r'^test/spider(/)?$', views.test_spider),
     url(r'^api/message/add(/)?$', views.add_wb_message),
 

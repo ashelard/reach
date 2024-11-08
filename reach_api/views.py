@@ -14,6 +14,12 @@ from wb_spider.wspider import run_spider
 logger = logging.getLogger('log')
 
 
+def test_job(request, _):
+    logger.info('test job called')
+    return JsonResponse({'code': 0, 'data': 'success'},
+                        json_dumps_params={'ensure_ascii': False})
+
+
 def get_current_time(request, _):
     utc_now = datetime.now(pytz.utc)
     # 转换为东八区时间

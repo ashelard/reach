@@ -13,4 +13,5 @@ class AppNameConfig(AppConfig):
     ready_run = False
 
     def ready(self):
-        reach_api.schedule.scheduler.start_scheduler()
+        pass
+        # reach_api.schedule.scheduler.start_scheduler()
