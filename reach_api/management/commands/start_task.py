@@ -1,4 +1,5 @@
 import logging
+import time
 
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -12,6 +13,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.start_task()
+        while True:
+            time.sleep(5)
+
 
     def start_task(self):
         scheduler = BackgroundScheduler()
