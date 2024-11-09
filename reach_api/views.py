@@ -32,16 +32,21 @@ def get_current_time(request, _):
 
 def test_spider(request, _):
     uid = request.GET.get('uid')
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+    access_user = request.GET.get('access_user')
+
     url = 'http://localhost:6800/schedule.json'
     data = {
         'project': 'wb_spider',
         'spider': 'tweet_user_id',
-        'params': json.dumps({'user_ids': [uid]})
+        'params': json.dumps({'user_ids': [uid],
+                              'start': start,
+                              'end': end,
+                              'access_user': access_user})
     }
 
     requests.post(url, data=data)
-    logger.info("test spider request send success")
-
     return JsonResponse({'code': 0, 'data': "success"},
                         json_dumps_params={'ensure_ascii': False})
 
