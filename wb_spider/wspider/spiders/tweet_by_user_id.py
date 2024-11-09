@@ -34,12 +34,12 @@ class TweetSpiderByUserID(Spider):
         user_ids = self.params.get('user_ids')
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
         is_crawl_specific_time_span = True
-        start_time = datetime.strptime(self.params.get('start'), '%Y-%m-%d')
+        start_time = self.tz.localize(datetime.strptime(self.params.get('start'), '%Y-%m-%d'))
         end_time = None
         if not self.params.get('end'):
             end_time = start_time + timedelta(days=1)
         else:
-            end_time = datetime.strptime(self.params.get('end'), '%Y-%m-%d')
+            end_time = self.tz.localize(datetime.strptime(self.params.get('end'), '%Y-%m-%d'))
         cookies = self.get_cookies(self.params.get('access_user'))
 
         for user_id in user_ids:
