@@ -90,6 +90,7 @@ class TweetSpiderByUserID(Spider):
                 yield Request(url, callback=parse_long_retweet, meta={'item': item, 'origin': origin})
             else:
                 yield Request(url, callback=parse_long_tweet, meta={'item': item})
+            return
 
         if origin:
             item = fill_tweet_origin(item, origin)

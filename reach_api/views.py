@@ -201,8 +201,6 @@ def add_wb_message(request, _):
     msg.origin_nick_name = body.get('origin_nick_name', None)
 
     msg.consumed = False
-    msg.createdAt = datetime.now()
-    msg.updatedAt = datetime.now()
 
     msg.save()
     return JsonResponse({'code': 0, 'data': 'success'},
