@@ -33,11 +33,12 @@ def get_current_time(request, _):
 
 
 def test_spider(request, _):
+    uid = request.GET.get('uid')
     url = 'http://localhost:6800/schedule.json'
     data = {
         'project': 'wb_spider',
         'spider': 'tweet_user_id',
-        'params': json.dumps({'user_ids', ['7716940453']})
+        'params': json.dumps({'user_ids', [uid]})
     }
 
     requests.post(url, data=data)
