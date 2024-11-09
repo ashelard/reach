@@ -38,7 +38,7 @@ def test_spider(request, _):
     data = {
         'project': 'wb_spider',
         'spider': 'tweet_user_id',
-        'params': json.dumps({'user_ids', [uid]})
+        'params': json.dumps({'user_ids': [uid]})
     }
 
     requests.post(url, data=data)
