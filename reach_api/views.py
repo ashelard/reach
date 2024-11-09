@@ -1,6 +1,5 @@
 import json
 import logging
-import threading
 from datetime import datetime
 
 import pytz
@@ -9,7 +8,6 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from .models import Counters, SpiderAuth, WbMessage
-from wb_spider.wspider import run_spider
 
 logger = logging.getLogger('log')
 
