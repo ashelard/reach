@@ -2,6 +2,7 @@ import datetime
 import json
 import logging
 from http.cookies import SimpleCookie
+from typing import Dict
 
 import pytz
 import requests
@@ -16,15 +17,21 @@ class TweetSpiderByUserID(Spider):
     """
     用户推文数据采集
     """
-    name = "tweet_spider_by_user_id"
+    name = "tweet_user_id"
     tz = pytz.timezone('Asia/Shanghai')
+
+    def __init__(self, params=None, *args, **kwargs):
+        super(TweetSpiderByUserID, self).__init__(*args, **kwargs)
+        self.params = json.loads(params) if params else None
 
     def start_requests(self):
         """
         爬虫入口
         """
+        if not self.params or not self.params.get('user_ids'):
+            return
         # 这里user_ids可替换成实际待采集的数据
-        user_ids = ['7716940453']
+        user_ids = self.params.get('user_ids')
         # 这里的时间替换成实际需要的时间段，如果要采集用户全部推文 is_crawl_specific_time_span 设置为False
         is_crawl_specific_time_span = True
         start_time = self.tz.localize(datetime.datetime(year=2024, month=10, day=11))
@@ -80,7 +87,7 @@ class TweetSpiderByUserID(Spider):
         if item['isLongText']:
             url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
             if origin:
-                yield Request(url, callback=parse_long_retweet, meta={'item': item,'origin':origin})
+                yield Request(url, callback=parse_long_retweet, meta={'item': item, 'origin': origin})
             else:
                 yield Request(url, callback=parse_long_tweet, meta={'item': item})
 
@@ -104,4 +111,3 @@ class TweetSpiderByUserID(Spider):
         cookie.load(cookie_content)
         cookies_dict = {key: morsel.value for key, morsel in cookie.items()}
         return cookies_dict
-

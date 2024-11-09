@@ -36,7 +36,8 @@ def test_spider(request, _):
     url = 'http://localhost:6800/schedule.json'
     data = {
         'project': 'wb_spider',
-        'spider': 'tweet_spider_by_user_id'
+        'spider': 'tweet_user_id',
+        'params': json.dumps({'user_ids', ['7716940453']})
     }
 
     requests.post(url, data=data)
