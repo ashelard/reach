@@ -19,11 +19,14 @@ def test_job(request, _):
 
 
 def get_current_time(request, _):
-    utc_now = datetime.now(pytz.utc)
-    # 转换为东八区时间
-    czone = pytz.timezone('Asia/Shanghai')
-    now = utc_now.astimezone(czone)
-    time = now.strftime("%Y-%m-%d %H:%M:%S")
+    # utc_now = datetime.now(pytz.utc)
+    # # 转换为东八区时间
+    # czone = pytz.timezone('Asia/Shanghai')
+    # now = utc_now.astimezone(czone)
+    # time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    sys_now = datetime.now()
+    time = sys_now.strftime("%Y-%m-%d %H:%M:%S")
 
     logger.info('get current time result: {}'.format(time))
     return JsonResponse({'code': 0, 'data': time},
