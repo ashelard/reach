@@ -200,7 +200,9 @@ def add_wb_message(request, _):
     msg.content = body.get('content', None)
     msg.url = body.get('url', None)
     czone = pytz.timezone('Asia/Shanghai')
-    publishAt = datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S").astimezone(czone)
+    logger.info('get origin publish_at: {}'.format(body.get('publish_at', None)))
+    publishAt = czone.localize(datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S"))
+    logger.info('get transfer publish_at: {}'.format(publishAt))
     msg.publish_at = publishAt
     # msg.publish_at = datetime.now()
     msg.verified = body.get('verified', None)
