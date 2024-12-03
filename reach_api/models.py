@@ -23,8 +23,8 @@ class SpiderAuth(models.Model):
     wid = models.BigIntegerField()
     cookie = models.CharField(max_length=2048)
     expired = models.BooleanField(default=False)
-    createdAt = models.DateTimeField(default=datetime.now(), )
-    updatedAt = models.DateTimeField(auto_now=True)
+    # createdAt = models.DateTimeField(default=datetime.now(), )
+    # updatedAt = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -50,8 +50,8 @@ class WbMessage(models.Model):
     origin_nick_name = models.CharField(max_length=50)
 
     consumed = models.BooleanField(default=False)
-    createdAt = models.DateTimeField(default=datetime.now(), )
-    updatedAt = models.DateTimeField(auto_now=True)
+    # createdAt = models.DateTimeField(default=datetime.now(), )
+    # updatedAt = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.content

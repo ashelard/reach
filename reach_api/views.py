@@ -28,7 +28,7 @@ def get_current_time(request, _):
     sys_now = datetime.now()
     time = sys_now.strftime("%Y-%m-%d %H:%M:%S")
 
-    logger.info('get current time result: {}'.format(time))
+    logger.info('get current time result: {}'.format(sys_now))
     return JsonResponse({'code': 0, 'data': time},
                         json_dumps_params={'ensure_ascii': False})
 
@@ -199,8 +199,10 @@ def add_wb_message(request, _):
     msg.nick_name = body.get('nick_name', None)
     msg.content = body.get('content', None)
     msg.url = body.get('url', None)
-    # msg.publish_at = datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S")
-    msg.publish_at = datetime.now()
+    czone = pytz.timezone('Asia/Shanghai')
+    publishAt = datetime.strptime(body.get('publish_at', None), "%Y-%m-%d %H:%M:%S").astimezone(czone)
+    msg.publish_at = publishAt
+    # msg.publish_at = datetime.now()
     msg.verified = body.get('verified', None)
     msg.origin_wid = body.get('origin_wid', None)
     msg.origin_xid = body.get('origin_xid', None)
