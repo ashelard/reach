@@ -210,6 +210,13 @@ def add_wb_message(request, _):
 
     msg.consumed = False
 
+    if msg.mblogid:
+        exist = WbMessage.objects.get(mblogid=msg.mblogid)
+        if exist:
+            logger.info('skip add msg because exist,id hash: {}'.format(msg.mblogid))
+            return JsonResponse({'code': 0, 'data': 'skip exist'},
+                                json_dumps_params={'ensure_ascii': False})
+
     msg.save()
     return JsonResponse({'code': 0, 'data': 'success'},
                         json_dumps_params={'ensure_ascii': False})
